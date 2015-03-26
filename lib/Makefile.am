@@ -15,8 +15,20 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
+XXD = @XXD@ -i
+BUILT_SOURCES = common-api.h
+SUFFIXES = .js
+
+extensiondir = $(libdir)/tizen-extensions-crosswalk
+
 include_HEADERS = common.h
 
-lib_LTLIBRARIES = libcommon.la
-libcommon_la_SOURCES = common.c
+extension_LTLIBRARIES = libcommon.la
+libcommon_la_SOURCES = common.c common-api.js
+libcommon_la_CPPFLAGS = @Jansson_CFLAGS@
 libcommon_la_LDFLAGS = -version 0:0:0
+libcommon_la_LIBADD = @Jansson_LIBS@
+
+.js.h:
+	@if [ $(AM_V_P) == false ]; then echo "  XXD      `basename $@`"; fi
+	$(AM_V_at)$(XXD) $< $@

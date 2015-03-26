@@ -31,6 +31,10 @@ LT_INIT
 AC_PROG_CC
 AM_PROG_CC_C_O
 
+AC_PATH_PROG([XXD], [xxd])
+
+PKG_CHECK_MODULES([Jansson], [jansson >= 2.7])
+
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile common.pc lib/Makefile tests/Makefile tests/package.m4 tests/atlocal])

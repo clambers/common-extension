@@ -7,6 +7,9 @@ License:  LGPL-3.0
 URL:      http://www.tizen.org
 Source:   %{name}-%{version}.tar.gz
 
+BuildRequires:  vim
+BuildRequires:  pkgconfig(jansson)
+
 %define debug_package %{nil}
 
 %description
@@ -35,6 +38,5 @@ rm -rf %{buildroot}
 %license COPYING COPYING.LESSER
 %doc README.md
 %{_includedir}/common.h
-%{_libdir}/libcommon.so*
-%{_libdir}/libcommon.a
+%{_libdir}/tizen-extensions-crosswalk/libcommon.so*
 %{_datadir}/pkgconfig/common.pc
