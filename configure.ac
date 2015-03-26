@@ -33,7 +33,7 @@ AM_PROG_CC_C_O
 
 AC_PATH_PROG([XXD], [xxd])
 
-PKG_CHECK_MODULES([Jansson], [jansson >= 2.7])
+PKG_CHECK_MODULES([Jansson], [jansson >= 2.2])
 
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
