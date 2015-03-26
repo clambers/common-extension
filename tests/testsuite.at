@@ -1,0 +1,31 @@
+# Copyright (C) 2015 Jaguar Land Rover Automotive PLC.
+#
+# This file is part of Common.
+#
+# Common is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Common is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Common.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_INIT
+AT_COPYRIGHT([Copyright (C) 2015 Jaguar Land Rover Automotive PLC.])
+AT_COLOR_TESTS
+
+m4_define([AT_COMPILE],
+[AT_CHECK(m4_join([ ],
+                  [$CC $CPPFLAGS -c -o],
+                  [m4_default([$2], [$1.o])],
+                  [$1.c]),
+          [0], [ignore], [ignore])
+AT_CHECK([$LIBTOOL --mode=link $CC -o $1 $1.o $LIBS],
+         [0], [ignore], [ignore])])
+
+m4_include([library.at])
