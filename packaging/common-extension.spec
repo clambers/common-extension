@@ -4,7 +4,7 @@ Version:  0.0.1
 Release:  1
 Group:    Applications/Native Applications
 License:  LGPL-3.0
-URL:      http://www.tizen.org
+URL:      https://github.com/clambers/common-extension/releases/download/v0.0.1/common-0.0.1.tar.gz
 Source:   %{name}-%{version}.tar.gz
 
 BuildRequires:  vim

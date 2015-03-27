@@ -16,7 +16,7 @@
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.68])
-AC_INIT([common], [0.0.1], [https://github.com/clambers/common-extension/issues], [], [https://github.com/clambers/common-extension])
+AC_INIT([common], [0.0.2], [https://github.com/clambers/common-extension/issues], [], [https://github.com/clambers/common-extension])
 AC_COPYRIGHT([Copyright (C) 2015 Jaguar Land Rover Automotive PLC.])
 AC_CONFIG_SRCDIR([lib/common.c])
 AC_CONFIG_AUX_DIR([build-aux])
