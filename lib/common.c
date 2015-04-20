@@ -15,7 +15,7 @@
    You should have received a copy of the GNU Lesser General Public License
    along with Common.  If not, see <http://www.gnu.org/licenses/>. */
 
-#define LOG_TAG PACKAGE_NAME
+#define LOG_TAG PACKAGE
 
 #include <config.h>
 #include <stdlib.h>
@@ -31,9 +31,13 @@ static const XW_CoreInterface *core = 0;
 static const XW_MessagingInterface *async_messaging = 0;
 static const XW_Internal_SyncMessagingInterface *sync_messaging = 0;
 
-static void instance_created(XW_Instance instance) {}
+static void instance_created(XW_Instance instance) {
+  LOGI("instance created");
+}
 
-static void instance_destroyed(XW_Instance instance) {}
+static void instance_destroyed(XW_Instance instance) {
+  LOGI("instance destroyed");
+}
 
 static void handle_message(XW_Instance instance, const char *msg) {}
 
@@ -42,16 +46,20 @@ static void handle_sync_message(XW_Instance instance, const char *msg) {
 
   LOGI("getting common path");
   res = common_get_path();
-  LOGI("common path retrieved");
+  LOGI("path retrieved");
   sync_messaging->SetSyncReply(instance, res);
-  LOGI("common path response sent");
+  LOGI("path response sent");
   free(res);
 }
 
-static void shutdown(XW_Extension ext) {}
+static void shutdown(XW_Extension ext) {
+  LOGI("shutdown");
+}
 
 int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   char kSource_common_api[common_api_js_len+1];
+
+  LOGI("initialized");
 
   memcpy(kSource_common_api, common_api_js, common_api_js_len);
   kSource_common_api[common_api_js_len] = '\0';
