@@ -18,6 +18,7 @@
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dlog.h>
 #include "XW_Extension.h"
 #include "XW_Extension_SyncMessage.h"
 #include "common-api.h"
@@ -37,8 +38,11 @@ static void handle_message(XW_Instance instance, const char *msg) {}
 static void handle_sync_message(XW_Instance instance, const char *msg) {
   char *res;
 
+  dlog_print(DLOG_INFO, "common", "getting common path");
   res = common_get_path();
+  dlog_print(DLOG_INFO, "common", "common path retrieved");
   sync_messaging->SetSyncReply(instance, res);
+  dlog_print(DLOG_INFO, "common", "common path response sent");
   free(res);
 }
 
@@ -72,9 +76,5 @@ char *common_version(void) {
 }
 
 char *common_get_path(void) {
-  char *res;
-
-  res = strdup(COMMON_PATH);
-
-  return res;
+  return strdup(COMMON_PATH);
 }
