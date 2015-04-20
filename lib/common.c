@@ -15,10 +15,12 @@
    You should have received a copy of the GNU Lesser General Public License
    along with Common.  If not, see <http://www.gnu.org/licenses/>. */
 
+#define LOG_TAG PACKAGE_NAME
+
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dlog.h>
+#include <dlog/dlog.h>
 #include "XW_Extension.h"
 #include "XW_Extension_SyncMessage.h"
 #include "common-api.h"
@@ -38,11 +40,11 @@ static void handle_message(XW_Instance instance, const char *msg) {}
 static void handle_sync_message(XW_Instance instance, const char *msg) {
   char *res;
 
-  dlog_print(DLOG_INFO, "common", "getting common path");
+  LOGI("getting common path");
   res = common_get_path();
-  dlog_print(DLOG_INFO, "common", "common path retrieved");
+  LOGI("common path retrieved");
   sync_messaging->SetSyncReply(instance, res);
-  dlog_print(DLOG_INFO, "common", "common path response sent");
+  LOGI("common path response sent");
   free(res);
 }
 
