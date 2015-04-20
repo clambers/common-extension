@@ -17,7 +17,6 @@
 
 ACLOCAL_AMFLAGS = -I m4
 AM_MAKEFLAGS = --no-print-directory
-EXTRA_DIST = $(srcdir)/autogen.sh
 SUBDIRS = lib tests
 
 pkgconfigdir = $(datarootdir)/pkgconfig

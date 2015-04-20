@@ -1,4 +1,5 @@
-# common-extension [![Build Status](https://travis-ci.org/clambers/common-extension.svg)](https://travis-ci.org/clambers/common-extension)
+Common
+======
 
-libcommon is a native Tizen extension containing all JLR assets. It exposes a
+libcommon is a Tizen extension containing all shared JLR assets. It exposes a
 simple interface to reach these assets in a generic way.

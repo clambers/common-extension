@@ -1,3 +1,9 @@
 #!/bin/sh
-mkdir -p m4
-autoreconf -i
+
+AUTORECONF=`which autoreconf`
+
+if [ -z $AUTORECONF ]; then
+  echo "*** autoreconf not found, please install autoconf ***"
+fi
+
+$AUTORECONF -fvi

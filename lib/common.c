@@ -18,45 +18,28 @@
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
-#include <jansson.h>
 #include "XW_Extension.h"
+#include "XW_Extension_SyncMessage.h"
 #include "common-api.h"
 #include "common.h"
 
 static XW_Extension extension = 0;
 static const XW_CoreInterface *core = 0;
-static const XW_MessagingInterface *messaging = 0;
+static const XW_MessagingInterface *async_messaging = 0;
+static const XW_Internal_SyncMessagingInterface *sync_messaging = 0;
 
 static void instance_created(XW_Instance instance) {}
 
 static void instance_destroyed(XW_Instance instance) {}
 
-static void handle_message(XW_Instance instance, const char *json) {
-  json_t *request, *response;
-  json_error_t error;
-  char *dump, *message;
-  int id;
+static void handle_message(XW_Instance instance, const char *msg) {}
 
-  response = json_object();
-  json_object_set_new(response, "err", json_null());
-  json_object_set_new(response, "id", json_null());
+static void handle_sync_message(XW_Instance instance, const char *msg) {
+  char *res;
 
-  request = json_loads(json, 0, &error);
-  if (!request) {
-    fprintf(stderr, "JSON error on line %d: %s\n", error.line, error.text);
-    json_object_set_new(response, "err", json_string("JSON parsing error"));
-    goto done;
-  }
-
-  json_unpack(request, "{siss}", "id", &id, "message", &message);
-  json_object_set_new(response, "id", json_integer(id));
-
-  json_object_set_new(response, "response", json_string("/foo/bar"));
-
- done:
-  dump = json_dumps(response, JSON_INDENT(2));
-  messaging->PostMessage(instance, dump);
-  free(dump);
+  res = common_get_path();
+  sync_messaging->SetSyncReply(instance, res);
+  free(res);
 }
 
 static void shutdown(XW_Extension ext) {}
@@ -75,12 +58,23 @@ int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   core->RegisterInstanceCallbacks(ext, instance_created, instance_destroyed);
   core->RegisterShutdownCallback(ext, shutdown);
 
-  messaging = get_interface(XW_MESSAGING_INTERFACE);
-  messaging->Register(ext, handle_message);
+  async_messaging = get_interface(XW_MESSAGING_INTERFACE);
+  async_messaging->Register(ext, handle_message);
+
+  sync_messaging = get_interface(XW_INTERNAL_SYNC_MESSAGING_INTERFACE);
+  sync_messaging->Register(ext, handle_sync_message);
 
   return XW_OK;
 }
 
 char *common_version(void) {
-  return strdup(VERSION);
+  return strdup(PACKAGE_VERSION);
+}
+
+char *common_get_path(void) {
+  char *res;
+
+  res = strdup(COMMON_PATH);
+
+  return res;
 }

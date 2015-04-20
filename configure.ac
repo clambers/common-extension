@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_PREREQ([2.68])
-AC_INIT([common], [0.0.2], [https://github.com/clambers/common-extension/issues], [], [https://github.com/clambers/common-extension])
+AC_PREREQ([2.69])
+AC_INIT([Common], [0.1], [https://github.com/clambers/common-extension/issues], [], [https://github.com/clambers/common-extension])
 AC_COPYRIGHT([Copyright (C) 2015 Jaguar Land Rover Automotive PLC.])
 AC_CONFIG_SRCDIR([lib/common.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([1.11 foreign -Wall -Werror])
+AM_INIT_AUTOMAKE([1.14 foreign -Wall -Werror -Wno-portability])
 AM_SILENT_RULES([yes])
 
 AM_PROG_AR
@@ -33,7 +33,9 @@ AM_PROG_CC_C_O
 
 AC_PATH_PROG([XXD], [xxd])
 
-PKG_CHECK_MODULES([Jansson], [jansson >= 2.2])
+AC_SUBST([COMMON_PATH], [/usr/share/common])
+AC_DEFINE_UNQUOTED([COMMON_PATH], ["$COMMON_PATH"],
+[Filesystem location of common assets.])
 
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
