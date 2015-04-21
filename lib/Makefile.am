@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
-XXD = @XXD@
-XXDFLAGS = -i
 BUILT_SOURCES = common-api.h
 SUFFIXES = .js
 
@@ -31,4 +29,4 @@ libcommon_la_LDFLAGS = -version 0:0:0
 libcommon_la_LIBADD = @DLog_LIBS@
 
 .js.h:
-	$(AM_V_GEN) $(XXD) $(XXDFLAGS) $< $@
+	$(AM_V_GEN) $(top_srcdir)/build-aux/js2c.sh $< $@

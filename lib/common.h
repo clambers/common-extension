@@ -18,7 +18,7 @@
    You should have received a copy of the GNU Lesser General Public License
    along with Common.  If not, see <http://www.gnu.org/licenses/>. */
 
-char *common_version(void);
+char *common_get_version(void);
 char *common_get_path(void);
 
 #endif

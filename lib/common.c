@@ -22,46 +22,47 @@
 #include <string.h>
 #include <dlog/dlog.h>
 #include "XW_Extension.h"
-#include "XW_Extension_SyncMessage.h"
 #include "common-api.h"
 #include "common.h"
 
 static XW_Extension extension = 0;
 static const XW_CoreInterface *core = 0;
-static const XW_MessagingInterface *async_messaging = 0;
-static const XW_Internal_SyncMessagingInterface *sync_messaging = 0;
+static const XW_MessagingInterface *messaging = 0;
 
 static void instance_created(XW_Instance instance) {
-  SLOGE("instance created");
+  SLOGI("Creating instance");
 }
 
 static void instance_destroyed(XW_Instance instance) {
-  SLOGE("instance destroyed");
+  SLOGI("Destroying instance");
 }
 
-static void handle_message(XW_Instance instance, const char *msg) {}
-
-static void handle_sync_message(XW_Instance instance, const char *msg) {
+static void handle_message(XW_Instance instance, const char *msg) {
   char *res;
 
-  SLOGE("getting common path");
-  res = common_get_path();
-  SLOGE("path retrieved");
-  sync_messaging->SetSyncReply(instance, res);
-  SLOGE("path response sent");
+  SLOGI("Received message");
+
+  if (strcmp(msg, "get-version") == 0) {
+    res = common_get_version();
+  } else if (strcmp(msg, "get-path") == 0) {
+    res = common_get_path();
+  } else {
+    res = strdup("Internal error");
+    SLOGE("Internal JS error: '%s' is not a valid message", msg);
+  }
+
+  SLOGI("Posting response");
+
+  messaging->PostMessage(instance, res);
+  free(res);
 }
 
 static void shutdown(XW_Extension ext) {
-  SLOGE("shutdown");
+  SLOGI("Shutting down");
 }
 
 int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
-  char kSource_common_api[common_api_js_len+1];
-
-  SLOGE("initialized");
-
-  memcpy(kSource_common_api, common_api_js, common_api_js_len);
-  kSource_common_api[common_api_js_len] = '\0';
+  SLOGI("Initializing");
 
   extension = ext;
 
@@ -71,16 +72,15 @@ int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   core->RegisterInstanceCallbacks(ext, instance_created, instance_destroyed);
   core->RegisterShutdownCallback(ext, shutdown);
 
-  async_messaging = get_interface(XW_MESSAGING_INTERFACE);
-  async_messaging->Register(ext, handle_message);
+  messaging = get_interface(XW_MESSAGING_INTERFACE);
+  messaging->Register(ext, handle_message);
 
-  sync_messaging = get_interface(XW_INTERNAL_SYNC_MESSAGING_INTERFACE);
-  sync_messaging->Register(ext, handle_sync_message);
+  SLOGI("Initialization complete");
 
   return XW_OK;
 }
 
-char *common_version(void) {
+char *common_get_version(void) {
   return strdup(PACKAGE_VERSION);
 }
 

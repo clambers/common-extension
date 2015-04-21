@@ -32,7 +32,6 @@ LT_INIT
 
 AC_PROG_CC
 AM_PROG_CC_C_O
-AC_PATH_PROG([XXD], [xxd])
 PKG_CHECK_MODULES([DLog], [dlog])
 
 AC_SUBST([COMMON_PATH], [/usr/share/common])
