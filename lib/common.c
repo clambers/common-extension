@@ -32,11 +32,11 @@ static const XW_MessagingInterface *async_messaging = 0;
 static const XW_Internal_SyncMessagingInterface *sync_messaging = 0;
 
 static void instance_created(XW_Instance instance) {
-  LOGI("instance created");
+  SLOGE("instance created");
 }
 
 static void instance_destroyed(XW_Instance instance) {
-  LOGI("instance destroyed");
+  SLOGE("instance destroyed");
 }
 
 static void handle_message(XW_Instance instance, const char *msg) {}
@@ -44,22 +44,21 @@ static void handle_message(XW_Instance instance, const char *msg) {}
 static void handle_sync_message(XW_Instance instance, const char *msg) {
   char *res;
 
-  LOGI("getting common path");
+  SLOGE("getting common path");
   res = common_get_path();
-  LOGI("path retrieved");
+  SLOGE("path retrieved");
   sync_messaging->SetSyncReply(instance, res);
-  LOGI("path response sent");
-  free(res);
+  SLOGE("path response sent");
 }
 
 static void shutdown(XW_Extension ext) {
-  LOGI("shutdown");
+  SLOGE("shutdown");
 }
 
 int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   char kSource_common_api[common_api_js_len+1];
 
-  LOGI("initialized");
+  SLOGE("initialized");
 
   memcpy(kSource_common_api, common_api_js, common_api_js_len);
   kSource_common_api[common_api_js_len] = '\0';
