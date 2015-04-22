@@ -36,10 +36,6 @@ AC_PROG_TAR_J
 PKG_CHECK_MODULES([DLog], [dlog])
 PKG_CHECK_MODULES([Jansson], [jansson])
 
-AC_SUBST([COMMON_PATH], [/usr/share/common])
-AC_DEFINE_UNQUOTED([COMMON_PATH], ["$COMMON_PATH"],
-[Filesystem location of common assets.])
-
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile common.pc lib/Makefile common/Makefile
