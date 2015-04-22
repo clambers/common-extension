@@ -1,11 +1,11 @@
 ARCHIVE = common.tar.xz
 MANIFEST = manifest.txt
+OUTDIR = $(DESTDIR)/$(commondir)
 EXTRA_DIST = $(ARCHIVE)
 
-commondir = $(datadir)/common
-
-install-data-hook:
-	$(TAR_J) -xvf $(ARCHIVE) -C $(commondir) > $(MANIFEST)
+install-data-local:
+	$(MKDIR_P) $(OUTDIR)
+	$(TAR_J) -xvf $(ARCHIVE) -C $(OUTDIR) > $(MANIFEST)
 
 uninstall-local:
-	cd $(commondir) && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST)
+	cd $(OUTDIR) && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST)

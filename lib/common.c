@@ -131,9 +131,9 @@ char *common_get_path(const char *rel) {
   size_t length;
   char *path;
 
-  length = strlen(COMMON_PATH) + strlen(rel) + 2;
+  length = strlen(COMMONDIR) + strlen(rel) + 2;
   path = malloc(length);
-  strcpy(path, COMMON_PATH);
+  strcpy(path, COMMONDIR);
   strcat(path, "/");
   strcat(path, rel);
 
