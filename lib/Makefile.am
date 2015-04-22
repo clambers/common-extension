@@ -24,9 +24,9 @@ include_HEADERS = common.h
 
 ext_LTLIBRARIES = libcommon.la
 libcommon_la_SOURCES = common.c common-api.js XW_Extension.h
-libcommon_la_CPPFLAGS = @DLog_CFLAGS@
+libcommon_la_CPPFLAGS = @DLog_CFLAGS@ @Jansson_CFLAGS@
 libcommon_la_LDFLAGS = -version 0:0:0
-libcommon_la_LIBADD = @DLog_LIBS@
+libcommon_la_LIBADD = @DLog_LIBS@ @Jansson_LIBS@
 
 .js.h:
 	$(AM_V_GEN) $(top_srcdir)/build-aux/js2c.sh $< $@

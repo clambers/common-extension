@@ -18,7 +18,7 @@
 ACLOCAL_AMFLAGS = -I m4
 AM_MAKEFLAGS = --no-print-directory
 EXTRA_DIST = $(srcdir)/build-aux/js2c.sh
-SUBDIRS = lib tests
+SUBDIRS = lib common tests
 
-pkgconfigdir = $(datarootdir)/pkgconfig
+pkgconfigdir = $(datadir)/pkgconfig
 pkgconfig_DATA = common.pc

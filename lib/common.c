@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dlog/dlog.h>
+#include <jansson.h>
 #include "XW_Extension.h"
 #include "common-api.h"
 #include "common.h"
@@ -30,39 +31,81 @@ static const XW_CoreInterface *core = 0;
 static const XW_MessagingInterface *messaging = 0;
 
 static void instance_created(XW_Instance instance) {
-  SLOGI("Creating instance");
+  SLOGI("creating instance");
 }
 
 static void instance_destroyed(XW_Instance instance) {
-  SLOGI("Destroying instance");
+  SLOGI("destroying instance");
 }
 
 static void handle_message(XW_Instance instance, const char *msg) {
-  char *res;
+  json_t *root, *id, *cmd, *res, *rel;
+  json_error_t err;
+  const char *cmd_value, *rel_value;
+  char *root_value, *res_value, *path_value;
 
-  SLOGI("Received message");
+  SLOGI("received message");
 
-  if (strcmp(msg, "get-version") == 0) {
-    res = common_get_version();
-  } else if (strcmp(msg, "get-path") == 0) {
-    res = common_get_path();
-  } else {
-    res = strdup("Internal error");
-    SLOGE("Internal JS error: '%s' is not a valid message", msg);
+  res = json_object();
+
+  root = json_loads(msg, 0, &err);
+  if (!json_is_object(root)) {
+    SLOGE("message doesn't appear to be a JSON object");
+    goto done;
   }
 
-  SLOGI("Posting response");
+  root_value = json_dumps(root, 0);
+  SLOGI("parsed input: %s", root_value);
 
-  messaging->PostMessage(instance, res);
-  free(res);
+  id = json_object_get(root, "id");
+  if (!json_is_integer(id)) {
+    SLOGE("message id isn't an integer");
+    goto done;
+  }
+
+  json_object_set(res, "id", id);
+  json_object_set_new(res, "result", json_string("internal error"));
+
+  cmd = json_object_get(root, "cmd");
+  if (!json_is_string(cmd)) {
+    SLOGE("message cmd isn't a string");
+    goto done;
+  }
+
+  cmd_value = json_string_value(cmd);
+
+  if (strcmp(cmd_value, "get-version") == 0) {
+    json_object_set_new(res, "result", json_string(common_get_version()));
+  } else if (strcmp(cmd_value, "get-path") == 0) {
+    rel = json_object_get(root, "rel");
+    if (!json_is_string(rel)) {
+      SLOGE("argument 'rel' isn't a string");
+      goto done;
+    }
+
+    rel_value = json_string_value(rel);
+    path_value = common_get_path(rel_value);
+    json_object_set_new(res, "result", json_string(path_value));
+    free(path_value);
+  } else {
+    SLOGE("internal JS error: invalid cmd '%s'", cmd_value);
+    goto done;
+  }
+
+ done:
+  json_decref(root);
+  res_value = json_dumps(res, 0);
+  SLOGI("posting response: %s", res_value);
+  messaging->PostMessage(instance, res_value);
+  json_decref(res);
 }
 
 static void shutdown(XW_Extension ext) {
-  SLOGI("Shutting down");
+  SLOGI("shutting down");
 }
 
 int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
-  SLOGI("Initializing");
+  SLOGI("initializing");
 
   extension = ext;
 
@@ -75,7 +118,7 @@ int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   messaging = get_interface(XW_MESSAGING_INTERFACE);
   messaging->Register(ext, handle_message);
 
-  SLOGI("Initialization complete");
+  SLOGI("initialization complete");
 
   return XW_OK;
 }
@@ -84,6 +127,15 @@ char *common_get_version(void) {
   return strdup(PACKAGE_VERSION);
 }
 
-char *common_get_path(void) {
-  return strdup(COMMON_PATH);
+char *common_get_path(const char *rel) {
+  size_t length;
+  char *path;
+
+  length = strlen(COMMON_PATH) + strlen(rel) + 2;
+  path = malloc(length);
+  strcpy(path, COMMON_PATH);
+  strcat(path, "/");
+  strcat(path, rel);
+
+  return path;
 }

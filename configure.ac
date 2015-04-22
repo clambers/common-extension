@@ -33,6 +33,7 @@ LT_INIT
 AC_PROG_CC
 AM_PROG_CC_C_O
 PKG_CHECK_MODULES([DLog], [dlog])
+PKG_CHECK_MODULES([Jansson], [jansson])
 
 AC_SUBST([COMMON_PATH], [/usr/share/common])
 AC_DEFINE_UNQUOTED([COMMON_PATH], ["$COMMON_PATH"],
@@ -40,7 +41,7 @@ AC_DEFINE_UNQUOTED([COMMON_PATH], ["$COMMON_PATH"],
 
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile common.pc lib/Makefile tests/Makefile
+AC_CONFIG_FILES([Makefile common.pc lib/Makefile common/Makefile tests/Makefile
 tests/package.m4 tests/atlocal])
 
 AC_OUTPUT

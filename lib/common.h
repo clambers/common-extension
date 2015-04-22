@@ -19,6 +19,6 @@
    along with Common.  If not, see <http://www.gnu.org/licenses/>. */
 
 char *common_get_version(void);
-char *common_get_path(void);
+char *common_get_path(const char *rel);
 
 #endif
