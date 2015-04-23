@@ -28,7 +28,7 @@ Detailed documentation
 
 ###### Params
 
-*cb*: return callback
+  - *cb*: return callback
 
 ###### Description
 
@@ -48,9 +48,8 @@ common.getVersion(function(version) {
 
 ###### Params
 
-*rel*: a relative path string
-
-*cb*: return callback
+  - *rel*: a relative path string
+  - *cb*: return callback
 
 ###### Description
 
