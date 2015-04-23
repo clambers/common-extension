@@ -75,7 +75,7 @@ static void handle_message(XW_Instance instance, const char *msg) {
   cmd_value = json_string_value(cmd);
 
   if (strcmp(cmd_value, "get-version") == 0) {
-    json_object_set_new(res, "result", json_string(common_get_version()));
+    json_object_set_new(res, "result", json_string(common_getVersion()));
   } else if (strcmp(cmd_value, "get-path") == 0) {
     rel = json_object_get(root, "rel");
     if (!json_is_string(rel)) {
@@ -84,7 +84,7 @@ static void handle_message(XW_Instance instance, const char *msg) {
     }
 
     rel_value = json_string_value(rel);
-    path_value = common_get_path(rel_value);
+    path_value = common_getPath(rel_value);
     json_object_set_new(res, "result", json_string(path_value));
     free(path_value);
   } else {
@@ -123,16 +123,17 @@ int32_t XW_Initialize(XW_Extension ext, XW_GetInterface get_interface) {
   return XW_OK;
 }
 
-char *common_get_version(void) {
+char *common_getVersion(void) {
   return strdup(PACKAGE_VERSION);
 }
 
-char *common_get_path(const char *rel) {
+char *common_getPath(const char *rel) {
   size_t length;
   char *path;
 
-  length = strlen(COMMONDIR) + strlen(rel) + 2;
+  length = strlen(COMMONDIR) + strlen(rel) + 9;
   path = malloc(length);
+  strcpy(path, "file://");
   strcpy(path, COMMONDIR);
   strcat(path, "/");
   strcat(path, rel);
