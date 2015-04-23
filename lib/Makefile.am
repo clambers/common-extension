@@ -16,7 +16,7 @@
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
 BUILT_SOURCES = common-api.h
-SUFFIXES = .js
+JS2C = $(top_srcdir)/build-aux/js2c.sh
 
 extdir = $(libdir)/tizen-extensions-crosswalk
 
@@ -28,5 +28,5 @@ libcommon_la_CPPFLAGS = @DLog_CFLAGS@ @Jansson_CFLAGS@
 libcommon_la_LDFLAGS = -version 0:0:0
 libcommon_la_LIBADD = @DLog_LIBS@ @Jansson_LIBS@
 
-.js.h:
-	$(AM_V_GEN) $(top_srcdir)/build-aux/js2c.sh $< $@
+%.h: %.js
+	$(AM_V_GEN) $(JS2C) $< $@
