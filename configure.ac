@@ -36,7 +36,7 @@ AC_PROG_TAR_J
 PKG_CHECK_MODULES([DLog], [dlog])
 PKG_CHECK_MODULES([Jansson], [jansson])
 
-commondir=$(readlink -f $datadir)/common
+commondir=/usr/share/common
 AC_ARG_VAR([commondir], [common install path])
 AC_DEFINE_UNQUOTED([COMMONDIR], ["$commondir"], [common install path])
 

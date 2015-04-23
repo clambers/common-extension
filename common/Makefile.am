@@ -8,4 +8,4 @@ install-data-local:
 	$(TAR_J) -xvf $(ARCHIVE) -C $(OUTDIR) > $(MANIFEST)
 
 uninstall-local:
-	cd $(OUTDIR) && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST)
+	( cd '$(OUTDIR)' && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST) )
