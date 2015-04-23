@@ -1,4 +1,4 @@
-ARCHIVE = common.tar.xz
+ARCHIVE = $(srcdir)/common.tar.xz
 MANIFEST = manifest.txt
 OUTDIR = $(DESTDIR)/$(commondir)
 EXTRA_DIST = $(ARCHIVE)
