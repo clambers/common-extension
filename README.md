@@ -34,6 +34,14 @@ Detailed documentation
 
 This function returns a string containing the version of libcommon.
 
+###### Usage
+
+```javascript
+common.getVersion(function(version) {
+  console.log('libcommon version: ' + version);
+});
+```
+
 * * *
 
 ##### getPath(rel, cb)
@@ -49,6 +57,14 @@ This function returns a string containing the version of libcommon.
 This function returns a URI pointing to the absolute path on the filesystem of
 the asset you want to retrieve. *rel* is the path of the asset relative to
 where it was installed.
+
+###### Usage
+
+```javascript
+common.getPath('css/style.css', function(path) {
+  console.log('asset path: ' + path);
+});
+```
 
 ###### Notes
 
