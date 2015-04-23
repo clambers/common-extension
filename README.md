@@ -58,4 +58,8 @@ The string returned by this function is suitable for passing directly to
 Licensing
 ---------
 
+libcommon is licensed under [LGPLv3][3].
+
 Copyright (C) 2015 Jaguar Land Rover Automotive PLC.
+
+[3]: https://www.gnu.org/licenses/lgpl-3.0.txt
