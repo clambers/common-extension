@@ -13,21 +13,24 @@ so this was born.
 API reference
 -------------
 
-| Purpose               | JS                 | Returns         |
-| --------------------- | ------------------ | --------------- |
-| Get extension version | `getVersion(cb)`   | Version string  |
-| Get asset path        | `getPath(rel, cb)` | Path URI string |
+| Purpose               | JS                      | Returns         |
+| --------------------- | ----------------------- | --------------- |
+| Get extension version | [`getVersion(cb)`][1]   | Version string  |
+| Get asset path        | [`getPath(rel, cb)`][2] | Path URI string |
+
+[1]: #getversioncb
+[2]: #getpathrel-cb
 
 Detailed documentation
 ----------------------
 
-##### getVersion(cb)
+#### getVersion(cb)
 
 *cb*: return callback
 
 This function returns a string containing the version of libcommon.
 
-##### getPath(rel, cb)
+#### getPath(rel, cb)
 
 *rel*: a relative path string
 
@@ -37,9 +40,9 @@ This function returns a URI pointing to the absolute path on the filesystem of
 the asset you want to retrieve. *rel* is the path of the asset relative to
 where it was installed.
 
-* * *
-
-###### Notes:
-
 The string returned by this function is suitable for passing directly to
 `tizen.filesystem.resolve()`.
+
+###### Licensing
+
+Copyright (C) 2015 Jaguar Land Rover Automotive PLC.
