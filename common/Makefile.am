@@ -2,7 +2,7 @@ ARCHIVE = $(srcdir)/common.tar.xz
 MANIFEST = manifest.txt
 OUTDIR = $(DESTDIR)$(datadir)/common
 MKDIR_CMD = $(MKDIR_P) '$(OUTDIR)'
-TAR_CMD = $(TAR_J) -xvf $(ARCHIVE) -C '$(OUTDIR)' > $(MANIFEST)
+TAR_CMD = $(TAR_J) -xvf $(ARCHIVE) -C '$(OUTDIR)' > '$(OUTDIR)/$(MANIFEST)'
 EXTRA_DIST = $(ARCHIVE)
 
 install-data-local:
