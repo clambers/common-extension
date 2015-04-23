@@ -24,25 +24,38 @@ API reference
 Detailed documentation
 ----------------------
 
-#### getVersion(cb)
+##### getVersion(cb)
+
+###### Params
 
 *cb*: return callback
 
+###### Description
+
 This function returns a string containing the version of libcommon.
 
-#### getPath(rel, cb)
+* * *
+
+##### getPath(rel, cb)
+
+###### Params
 
 *rel*: a relative path string
 
 *cb*: return callback
 
+###### Description
+
 This function returns a URI pointing to the absolute path on the filesystem of
 the asset you want to retrieve. *rel* is the path of the asset relative to
 where it was installed.
 
+###### Notes
+
 The string returned by this function is suitable for passing directly to
 `tizen.filesystem.resolve()`.
 
-###### Licensing
+Licensing
+---------
 
 Copyright (C) 2015 Jaguar Land Rover Automotive PLC.
