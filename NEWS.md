@@ -14,4 +14,7 @@ New in version 0.2:
 
   * The configure script no longer leaves behind an [ugly file][1]
 
+  * The project now supports [VPATH builds][2] and passes distcheck
+
 [1]: ../../issues/1
+[2]: ../../issues/2
