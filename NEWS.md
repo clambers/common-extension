@@ -1,6 +1,10 @@
 News/Changelog
 ==============
 
+New in version 0.3:
+-------------------
+
+
 New in version 0.2:
 -------------------
 
@@ -12,9 +16,9 @@ New in version 0.2:
     camel-cased name as the JS API, prefixed with `common_` (e.g.
     `common_getVersion()`).
 
-  * The configure script no longer leaves behind an [ugly file][1]
+  * The configure script no longer leaves behind an [ugly file][2]
 
-  * The project now supports [VPATH builds][2] and passes distcheck
+  * The project now supports [VPATH builds][1] and passes distcheck
 
-[1]: ../../issues/1
 [2]: ../../issues/2
+[1]: ../../issues/1

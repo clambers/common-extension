@@ -16,7 +16,7 @@
 # along with Common.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.69])
-AC_INIT([Common], [0.2],
+AC_INIT([Common], [0.3],
 [https://github.com/clambers/common-extension/issues], [],
 [https://github.com/clambers/common-extension])
 AC_COPYRIGHT([Copyright (C) 2015 Jaguar Land Rover Automotive PLC.])
