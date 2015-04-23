@@ -19,14 +19,44 @@ AT_BANNER([Library testing.])
 
 AT_SETUP([Version])
 AT_DATA([version.c],
-[[#include <stdio.h>
-#include <stdlib.h>
+[[#include <stdlib.h>
 #include <common.h>
 
 int main(void) {
+  char *version;
+
+  version = NULL;
+
+  version = common_getVersion();
+  if (!version) {
+    return EXIT_FAILURE;
+  }
+
   return EXIT_SUCCESS;
 }
 ]])
 AT_COMPILE([version])
 AT_CHECK([./version], [0], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([Path])
+AT_DATA([path.c],
+[[#include <stdlib.h>
+#include <common.h>
+
+int main(void) {
+  char *path;
+
+  path = NULL;
+
+  path = common_getPath("css/style.css");
+  if (!path) {
+    return EXIT_FAILURE;
+  }
+
+  return EXIT_SUCCESS;
+}
+]])
+AT_COMPILE([path])
+AT_CHECK([./path], [0], [ignore], [ignore])
 AT_CLEANUP
