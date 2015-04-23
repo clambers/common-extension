@@ -12,4 +12,5 @@ install-data-local:
 	$(TAR_CMD) || exit 1
 
 uninstall-local:
-	( cd '$(OUTDIR)' && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST) )
+	( rm -rf '$(OUTDIR)' )
+#	( cd '$(OUTDIR)' && cat $(MANIFEST) | xargs rm -f && rm $(MANIFEST) )
