@@ -17,7 +17,7 @@
 
 BUILT_SOURCES = common-api.h
 JS2C = $(top_srcdir)/build-aux/js2c.sh
-DISTCLEANFILES = common-api.js
+DISTCLEANFILES = common-api.h
 
 extdir = $(libdir)/tizen-extensions-crosswalk
 
