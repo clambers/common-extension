@@ -2,7 +2,7 @@ AC_DEFUN([AC_PROG_TAR_J],
 [AC_MSG_CHECKING([for a tar that supports -J])
 TAR_J=""
 res=""
-if tar -cJf /dev/null /dev/null 2>-; then res=yes; else res=no; fi
+if tar -cJf /dev/null /dev/null 2> /dev/null; then res=yes; else res=no; fi
 ac_cv_path_tar=`which tar`
 AS_IF([test "x$res"=xyes], [TAR_J="$ac_cv_path_tar -J"],
 [AC_MSG_RESULT([no])
