@@ -36,9 +36,9 @@ AC_PROG_TAR_J
 PKG_CHECK_MODULES([dlog], [dlog])
 PKG_CHECK_MODULES([jansson], [jansson])
 
-commondir=/usr/share/common
-AC_ARG_VAR([commondir], [common install path])
-AC_DEFINE_UNQUOTED([COMMONDIR], ["$commondir"], [common install path])
+COMMONDIR=/usr/share/common
+AC_ARG_VAR([COMMONDIR], [common install path])
+AC_DEFINE_UNQUOTED([COMMONDIR], ["$COMMONDIR"], [common install path])
 
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_HEADERS([config.h])
