@@ -4,6 +4,7 @@ News/Changelog
 New in version 0.3:
 -------------------
 
+  * The API now accepts NULLs and empty-strings properly.
 
 New in version 0.2:
 -------------------

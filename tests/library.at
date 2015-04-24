@@ -31,6 +31,7 @@ AT_TEST([path-null], AT_TEST_MAIN([
   char *path = NULL;
   path = common_getPath(NULL);
   if (!path) return EXIT_FAILURE;
+  if (strcmp(path, "file://" COMMONDIR "/") != 0) return EXIT_FAILURE;
   return EXIT_SUCCESS;
 ]))
 AT_CLEANUP
@@ -40,6 +41,7 @@ AT_TEST([path-empty], AT_TEST_MAIN([
   char *path = NULL;
   path = common_getPath("");
   if (!path) return EXIT_FAILURE;
+  if (strcmp(path, "file://" COMMONDIR "/") != 0) return EXIT_FAILURE;
   return EXIT_SUCCESS;
 ]))
 AT_CLEANUP

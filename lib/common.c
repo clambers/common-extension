@@ -133,14 +133,19 @@ char *common_getVersion(void) {
 char *common_getPath(const char *rel) {
   size_t length;
   char *path;
+  char invalid;
   struct stat buf;
 
-  length = strlen(COMMONDIR) + strlen(rel) + 9;
+  invalid = !rel;
+
+  length = strlen(COMMONDIR) + (invalid ? 0 : strlen(rel)) + 9;
   path = malloc(length);
   strcpy(path, "file://");
   strcat(path, COMMONDIR);
   strcat(path, "/");
-  strcat(path, rel);
+  if (!invalid) {
+    strcat(path, rel);
+  }
 
   if ((stat(path, &buf)) == 0) {
     return NULL;
