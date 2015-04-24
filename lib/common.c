@@ -20,6 +20,9 @@
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <dlog/dlog.h>
 #include <jansson.h>
 #include "XW_Extension.h"
@@ -130,6 +133,7 @@ char *common_getVersion(void) {
 char *common_getPath(const char *rel) {
   size_t length;
   char *path;
+  struct stat buf;
 
   length = strlen(COMMONDIR) + strlen(rel) + 9;
   path = malloc(length);
@@ -137,6 +141,11 @@ char *common_getPath(const char *rel) {
   strcat(path, COMMONDIR);
   strcat(path, "/");
   strcat(path, rel);
+
+  stat(path, &buf);
+  if (!buf) {
+    return NULL;
+  }
 
   return path;
 }
