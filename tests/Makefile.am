@@ -28,16 +28,14 @@ DISTCLEANFILES = atconfig atlocal
 MAINTAINERCLEANFILES = $(TESTSUITE) package.m4
 
 $(TESTSUITE): $(TESTSUITE_AT)
-	@if [ $(AM_V_P) == false ]; then echo "  AT      `basename $(TESTSUITE)`"; fi
-	$(AM_V_at)$(AT) $(ATFLAGS) -o $@.tmp $@.at
+	$(AM_V_GEN) $(AT) $(ATFLAGS) -o $@.tmp $@.at
 	$(AM_V_at)mv $@.tmp $@
 
 check-local: all atconfig atlocal $(TESTSUITE)
-	@if [ $(AM_V_P) == false ]; then echo "  TEST    `basename $(TESTSUITE)`"; fi
-	$(AM_V_at)./$(TESTSUITE)
+	$(AM_V_at)$(SHELL) $(TESTSUITE)
 
 installcheck-local: all atconfig atlocal $(TESTSUITE)
-	$(AM_V_at)./$(TESTSUITE) AUTOTEST_PATH='$(bindir)'
+	$(AM_V_at)$(SHELL) $(TESTSUITE) AUTOTEST_PATH='$(bindir)'
 
 clean-local:
-	test ! -f $(TESTSUITE) || ./$(TESTSUITE) --clean
+	test ! -f $(TESTSUITE) || $(SHELL) $(TESTSUITE) --clean

@@ -18,45 +18,28 @@
 AT_BANNER([Library testing.])
 
 AT_SETUP([Version])
-AT_DATA([version.c],
-[[#include <stdlib.h>
-#include <common.h>
-
-int main(void) {
-  char *version;
-
-  version = NULL;
-
+AT_TEST([get-version], AT_TEST_MAIN([
+  char *version = NULL;
   version = common_getVersion();
-  if (!version) {
-    return EXIT_FAILURE;
-  }
-
+  if (!version) return EXIT_FAILURE;
   return EXIT_SUCCESS;
-}
-]])
-AT_COMPILE([version])
-AT_CHECK([./version], [0], [ignore], [ignore])
+]))
 AT_CLEANUP
 
-AT_SETUP([Path])
-AT_DATA([path.c],
-[[#include <stdlib.h>
-#include <common.h>
-
-int main(void) {
-  char *path;
-
-  path = NULL;
-
-  path = common_getPath("css/style.css");
-  if (!path) {
-    return EXIT_FAILURE;
-  }
-
+AT_SETUP([Path (null)])
+AT_TEST([path-null], AT_TEST_MAIN([
+  char *path = NULL;
+  path = common_getPath(NULL);
+  if (!path) return EXIT_FAILURE;
   return EXIT_SUCCESS;
-}
-]])
-AT_COMPILE([path])
-AT_CHECK([./path], [0], [ignore], [ignore])
+]))
+AT_CLEANUP
+
+AT_SETUP([Path (empty string)])
+AT_TEST([path-empty], AT_TEST_MAIN([
+  char *path = NULL;
+  path = common_getPath("");
+  if (!path) return EXIT_FAILURE;
+  return EXIT_SUCCESS;
+]))
 AT_CLEANUP

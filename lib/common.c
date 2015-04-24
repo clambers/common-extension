@@ -142,8 +142,7 @@ char *common_getPath(const char *rel) {
   strcat(path, "/");
   strcat(path, rel);
 
-  stat(path, &buf);
-  if (!buf) {
+  if ((stat(path, &buf)) == 0) {
     return NULL;
   }
 
