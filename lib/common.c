@@ -134,7 +134,6 @@ char *common_getPath(const char *rel) {
   size_t length;
   char *path;
   char invalid;
-  struct stat buf;
 
   invalid = !rel;
 
@@ -145,10 +144,6 @@ char *common_getPath(const char *rel) {
   strcat(path, "/");
   if (!invalid) {
     strcat(path, rel);
-  }
-
-  if ((stat(path, &buf)) == 0) {
-    return NULL;
   }
 
   return path;

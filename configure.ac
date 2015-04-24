@@ -33,8 +33,8 @@ LT_INIT
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_TAR_J
-PKG_CHECK_MODULES([DLog], [dlog])
-PKG_CHECK_MODULES([Jansson], [jansson])
+PKG_CHECK_MODULES([dlog], [dlog])
+PKG_CHECK_MODULES([jansson], [jansson])
 
 commondir=/usr/share/common
 AC_ARG_VAR([commondir], [common install path])
