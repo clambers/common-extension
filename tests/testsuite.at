@@ -61,12 +61,12 @@ $(TARGET): ]FILE[.lo
 ]])
 AT_CHECK(
 [make \
-LIBTOOL=$LIBTOOL \
-CC=$CC \
-CPPFLAGS=$CPPFLAGS \
-CFLAGS=$CFLAGS \
-LDFLAGS=$LDFLAGS \
-LIBS=$LIBS
+LIBTOOL="$LIBTOOL" \
+CC="$CC" \
+CPPFLAGS="$CPPFLAGS" \
+CFLAGS="$CFLAGS" \
+LDFLAGS="$LDFLAGS" \
+LIBS="$LIBS"
 ], [0], [ignore], [ignore])
 AT_CHECK([./FILE], [0], [ignore], [ignore])
 m4_popdef([FILE])
